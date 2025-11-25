@@ -1,73 +1,232 @@
-# React + TypeScript + Vite
+# 🍔 Burger King - Telegram Mini App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Современное приложение для заказа еды через Telegram Mini App с красивыми анимациями и адаптивной темой из Telegram.
 
-Currently, two official plugins are available:
+## ✨ Основные возможности
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 🎨 **Динамическая тема Telegram** - автоматически подстраивается под тему пользователя
+- ⚡ **Плавные анимации** - используется Framer Motion для создания красивых переходов
+- 🧭 **Роутинг** - React Router DOM для навигации между страницами
+- 📱 **Полная интеграция с Telegram WebApp API**
+  - HapticFeedback (тактильная обратная связь)
+  - Адаптация под тему пользователя
+  - Автоматическое расширение окна
+- 🛒 **Управление корзиной** - добавление, удаление, изменение количества
+- 💳 **Процесс оформления заказа** - с расчетом налога и доставки
+- 🎉 **Анимированные уведомления** - красивые эффекты при успешном заказе
 
-## React Compiler
+## 🎨 Дизайн
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Адаптивная цветовая схема из Telegram
+- Градиенты и тени для создания глубины
+- Плавные переходы между страницами
+- Responsive дизайн для всех устройств
+- Современные карточки товаров с hover-эффектами
+- Анимированные кнопки и элементы
 
-## Expanding the ESLint configuration
+## 📦 Структура проекта
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+src/
+├── components/          # React компоненты
+│   └── MenuItemCard.tsx # Карточка товара с анимациями
+├── pages/              # Страницы приложения
+│   ├── MenuPage.tsx    # Главная страница с меню
+│   ├── CartPage.tsx    # Страница корзины
+│   ├── CheckoutPage.tsx # Страница оформления заказа
+│   └── SuccessPage.tsx  # Страница успешного заказа
+├── hooks/              # Custom React hooks
+│   └── useTelegramTheme.ts # Хук для работы с темой Telegram
+├── data/
+│   └── menuData.ts     # Данные меню
+├── types/
+│   ├── types.ts        # TypeScript типы
+│   └── telegram.d.ts   # Типы Telegram WebApp API
+├── App.tsx             # Главный компонент с роутингом
+└── main.tsx            # Точка входа
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🚀 Установка и запуск
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Установка зависимостей
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
 ```
+
+### Разработка
+
+```bash
+npm run dev
+```
+
+### Сборка для продакшена
+
+```bash
+npm run build
+```
+
+### Предпросмотр сборки
+
+```bash
+npm run preview
+```
+
+## 🎮 Навигация
+
+Приложение состоит из 4 основных страниц:
+
+1. **Главная страница (/)** - Меню с товарами
+2. **Корзина (/cart)** - Просмотр и управление заказом
+3. **Оформление (/checkout)** - Подтверждение и оплата
+4. **Успех (/success)** - Подтверждение заказа
+
+## 🎨 Использование темы Telegram
+
+Приложение автоматически подстраивается под тему пользователя в Telegram:
+
+- `bg_color` - Основной цвет фона
+- `text_color` - Цвет текста
+- `hint_color` - Цвет подсказок
+- `link_color` - Акцентный цвет
+- `button_color` - Цвет кнопок
+- `button_text_color` - Цвет текста на кнопках
+- `secondary_bg_color` - Вторичный цвет фона
+
+## 🎭 Анимации
+
+### Типы анимаций:
+- **Fade In/Out** - Плавное появление/исчезновение
+- **Slide** - Скольжение элементов
+- **Scale** - Масштабирование при взаимодействии
+- **Stagger** - Последовательное появление элементов
+- **Spring** - Физичные анимации с пружинящим эффектом
+- **Rotate** - Вращение элементов
+- **Confetti** - Эффект конфетти при успешном заказе
+
+### Примеры использования:
+
+```tsx
+<motion.div
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  whileHover={{ scale: 1.05 }}
+  whileTap={{ scale: 0.95 }}
+>
+  Content
+</motion.div>
+```
+
+## 🔧 Технологии
+
+- **React 19** - UI библиотека
+- **TypeScript** - Типизация
+- **Vite** - Быстрый сборщик
+- **Tailwind CSS 4** - Utility-first CSS
+- **React Router DOM** - Роутинг
+- **Framer Motion** - Анимации
+- **Telegram WebApp API** - Интеграция с Telegram
+
+## 📱 Интеграция с Telegram
+
+### Доступные методы:
+
+```typescript
+// Инициализация
+window.Telegram.WebApp.ready();
+window.Telegram.WebApp.expand();
+
+// Тема
+const theme = window.Telegram.WebApp.themeParams;
+
+// Тактильная обратная связь
+window.Telegram.WebApp.HapticFeedback.impactOccurred('light');
+window.Telegram.WebApp.HapticFeedback.notificationOccurred('success');
+
+// Данные пользователя
+const user = window.Telegram.WebApp.initDataUnsafe.user;
+```
+
+## 🍔 Меню товаров
+
+**Основные блюда:**
+- 🍔 Burger - $4.99
+- 🌭 Hotdog - $3.49
+- 🌮 Taco - $3.99
+- 🍕 Pizza - $7.99
+- 🍝 Pasta - $6.99
+- 🍣 Sushi - $8.99
+
+**Гарниры:**
+- 🍟 Fries - $1.49
+
+**Десерты:**
+- 🍩 Donut - $1.49
+- 🍦 Ice Cream - $2.49
+
+## 🎯 Возможности для расширения
+
+- [ ] Интеграция с реальным API бэкенда
+- [ ] Реальная оплата через Telegram Payments API
+- [ ] История заказов пользователя
+- [ ] Избранные товары
+- [ ] Система промокодов и скидок
+- [ ] Отслеживание доставки в реальном времени
+- [ ] Push-уведомления о статусе заказа
+- [ ] Множественные адреса доставки
+- [ ] Система отзывов и рейтингов
+- [ ] Программа лояльности
+- [ ] Персонализированные рекомендации
+- [ ] Поддержка нескольких языков
+
+## 🛠️ Разработка
+
+### Добавление новых товаров:
+
+Отредактируйте `src/data/menuData.ts`:
+
+```typescript
+{
+  id: 10,
+  name: 'New Item',
+  emoji: '🍿',
+  price: 3.99,
+  category: 'snacks'
+}
+```
+
+### Изменение анимаций:
+
+Используйте Framer Motion компоненты:
+
+```tsx
+import { motion } from 'framer-motion';
+
+<motion.div
+  variants={yourVariants}
+  initial="hidden"
+  animate="visible"
+>
+  Content
+</motion.div>
+```
+
+### Настройка темы:
+
+Цвета автоматически берутся из Telegram, но можно изменить fallback-значения в `src/hooks/useTelegramTheme.ts`.
+
+## 📝 Лицензия
+
+MIT
+
+## 🤝 Вклад в проект
+
+Pull requests приветствуются! Для больших изменений, пожалуйста, сначала откройте issue для обсуждения.
+
+## 📞 Поддержка
+
+Если у вас возникли вопросы или проблемы, создайте issue в репозитории.
+
+---
+
+Made with ❤️ for Telegram Mini Apps
