@@ -10,7 +10,7 @@ function App() {
    <div className=' w-full p-5'>
     <h1>Head text</h1>
 
-    <h4>Heloo {user?.first_name} {user?.last_name} {user?.username}</h4>
+    <h4 className="text-white">Heloo {user?.first_name} {user?.last_name} {user?.username}</h4>
    </div>
   )
 }
