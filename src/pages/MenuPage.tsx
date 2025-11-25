@@ -86,7 +86,7 @@ export const MenuPage = ({ cart, onAddToCart }: MenuPageProps) => {
       </motion.div>
 
       {/* Menu Grid with stagger animation */}
-      <div className="px-4 py-5">
+      <div className="px-5 py-5">
         <motion.h2 
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
@@ -122,7 +122,7 @@ export const MenuPage = ({ cart, onAddToCart }: MenuPageProps) => {
           initial={{ y: 100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 100, opacity: 0 }}
-          className="fixed bottom-4 left-4 right-4 z-50"
+          className="fixed bottom-4 left-5 right-5 z-50"
         >
           <motion.button
             whileHover={{ scale: 1.02 }}
