@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { motion, type Variants } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import type { MenuItem, CartItem } from '../types/types';
 import { MenuItemCard } from '../components/MenuItemCard';
@@ -103,10 +103,10 @@ export const MenuPage = ({ cart, onAddToCart }: MenuPageProps) => {
           animate="visible"
           className="grid grid-cols-2 md:grid-cols-3 gap-3"
         >
-          {menuItems.map((item, index) => (
+          {menuItems.map((item) => (
             <motion.div
               key={item.id}
-              variants={itemVariants}
+              variants={itemVariants as Variants}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
