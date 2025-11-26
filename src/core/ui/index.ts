@@ -14,3 +14,5 @@ export type { BadgeProps } from "./badge";
 
 export { Skeleton } from "./skeleton";
 
+export { BottomSheet } from "./bottom-sheet";
+

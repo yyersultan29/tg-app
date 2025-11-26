@@ -4,4 +4,5 @@ export interface MenuEntity {
   emoji: string;
   price: number;
   category: string;
+  description: string;
 }

@@ -4,6 +4,7 @@ export interface MenuItem {
   emoji: string;
   price: number;
   category: string;
+  description: string;
 }
 
 export interface CartItem extends MenuItem {

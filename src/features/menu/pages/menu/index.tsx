@@ -1,14 +1,20 @@
+import { useState } from "react";
 import { motion, type Variants } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { MenuItemCard } from "./components";
+import { ProductDetailSheet } from "@/features/menu/components";
 import { menuItems } from "@data/menuData";
+import type { MenuEntity } from "@/features/menu/entities";
 import { useTheme, useCart } from "@core/providers";
 import { Badge, Button } from "@core/ui";
 
 export const MenuPage = () => {
   const navigate = useNavigate();
   const theme = useTheme();
-  const { cart, addToCart } = useCart();
+  const { cart } = useCart();
+  const [selectedProduct, setSelectedProduct] = useState<MenuEntity | null>(
+    null
+  );
   const cartItemCount = cart.reduce((sum, item) => sum + item.quantity, 0);
 
   const containerVariants = {
@@ -106,7 +112,10 @@ export const MenuPage = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              <MenuItemCard item={item} onAdd={addToCart} />
+              <MenuItemCard
+                item={item}
+                onClick={() => setSelectedProduct(item)}
+              />
             </motion.div>
           ))}
         </motion.div>
@@ -135,6 +144,13 @@ export const MenuPage = () => {
           </Button>
         </motion.div>
       )}
+
+      {/* Product Detail Bottom Sheet */}
+      <ProductDetailSheet
+        product={selectedProduct}
+        isOpen={selectedProduct !== null}
+        onClose={() => setSelectedProduct(null)}
+      />
     </div>
   );
 };
