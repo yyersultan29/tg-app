@@ -35,7 +35,7 @@ const gradients = {
 };
 
 export interface CardProps
-  extends React.HTMLAttributes<HTMLDivElement>,
+  extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onAnimationStart' | 'onDrag' | 'onDragStart' | 'onDragEnd'>,
     VariantProps<typeof cardVariants> {
   gradient?: keyof typeof gradients;
   hover?: boolean;
@@ -44,23 +44,34 @@ export interface CardProps
 
 const Card = React.forwardRef<HTMLDivElement, CardProps>(
   ({ className, variant, padding, gradient, hover, children, ...props }, ref) => {
-    const Component = hover ? motion.div : "div";
+    if (hover) {
+      return (
+        <motion.div
+          ref={ref}
+          className={cn(cardVariants({ variant, padding, className }))}
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+          {...props}
+        >
+          {gradient && (
+            <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${gradients[gradient]} rounded-t-2xl`} />
+          )}
+          {children}
+        </motion.div>
+      );
+    }
     
     return (
-      <Component
+      <div
         ref={ref}
         className={cn(cardVariants({ variant, padding, className }))}
-        {...(hover ? {
-          whileHover: { scale: 1.02 },
-          whileTap: { scale: 0.98 }
-        } : {})}
         {...props}
       >
         {gradient && (
           <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${gradients[gradient]} rounded-t-2xl`} />
         )}
         {children}
-      </Component>
+      </div>
     );
   }
 );

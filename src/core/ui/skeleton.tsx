@@ -1,7 +1,8 @@
+import * as React from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
-interface SkeletonProps extends React.HTMLAttributes<HTMLDivElement> {
+interface SkeletonProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onAnimationStart' | 'onDrag' | 'onDragStart' | 'onDragEnd'> {
   variant?: "text" | "rect" | "circle";
 }
 

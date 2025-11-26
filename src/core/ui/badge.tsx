@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import { badgeVariants } from "./badge-variants";
 
 export interface BadgeProps
-  extends React.HTMLAttributes<HTMLDivElement>,
+  extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onAnimationStart' | 'onDrag' | 'onDragStart' | 'onDragEnd'>,
     VariantProps<typeof badgeVariants> {
   icon?: string;
   onClose?: () => void;
