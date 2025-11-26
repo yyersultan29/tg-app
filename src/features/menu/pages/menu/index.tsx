@@ -1,18 +1,14 @@
-import { motion, type Variants } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
-import type { MenuItem, CartItem } from '../types/types';
-import { MenuItemCard } from '../components/MenuItemCard';
-import { menuItems } from '../data/menuData';
-import { useTelegramTheme } from '../hooks/useTelegramTheme';
+import { motion, type Variants } from "framer-motion";
+import { useNavigate } from "react-router-dom";
+import { MenuItemCard } from "./components";
+import { menuItems } from "@data/menuData";
+import { useTheme, useCart } from "@core/providers";
+import { Badge, Button } from "@core/ui";
 
-interface MenuPageProps {
-  cart: CartItem[];
-  onAddToCart: (item: MenuItem) => void;
-}
-
-export const MenuPage = ({ cart, onAddToCart }: MenuPageProps) => {
+export const MenuPage = () => {
   const navigate = useNavigate();
-  const theme = useTelegramTheme();
+  const theme = useTheme();
+  const { cart, addToCart } = useCart();
   const cartItemCount = cart.reduce((sum, item) => sum + item.quantity, 0);
 
   const containerVariants = {
@@ -20,9 +16,9 @@ export const MenuPage = ({ cart, onAddToCart }: MenuPageProps) => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1
-      }
-    }
+        staggerChildren: 0.1,
+      },
+    },
   };
 
   const itemVariants = {
@@ -32,18 +28,18 @@ export const MenuPage = ({ cart, onAddToCart }: MenuPageProps) => {
       y: 0,
       transition: {
         type: "spring",
-        stiffness: 100
-      }
-    }
+        stiffness: 100,
+      },
+    },
   };
 
   return (
-    <div 
+    <div
       className="min-h-screen pb-20"
       style={{ backgroundColor: theme.bgColor }}
     >
       {/* Header with animation */}
-      <motion.div 
+      <motion.div
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ type: "spring", stiffness: 100 }}
@@ -52,21 +48,21 @@ export const MenuPage = ({ cart, onAddToCart }: MenuPageProps) => {
         {/* Decorative elements */}
         <div className="absolute top-0 right-0 w-32 h-32 bg-white opacity-5 rounded-full -mr-16 -mt-16"></div>
         <div className="absolute bottom-0 left-0 w-24 h-24 bg-white opacity-5 rounded-full -ml-12 -mb-12"></div>
-        
+
         <div className="relative z-10 text-center">
           <motion.div
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
-            transition={{ 
-              type: "spring", 
+            transition={{
+              type: "spring",
               stiffness: 200,
-              delay: 0.2 
+              delay: 0.2,
             }}
             className="text-7xl mb-3 drop-shadow-2xl"
           >
             🍔
           </motion.div>
-          <motion.h1 
+          <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
@@ -74,7 +70,7 @@ export const MenuPage = ({ cart, onAddToCart }: MenuPageProps) => {
           >
             Burger King
           </motion.h1>
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4 }}
@@ -87,7 +83,7 @@ export const MenuPage = ({ cart, onAddToCart }: MenuPageProps) => {
 
       {/* Menu Grid with stagger animation */}
       <div className="px-5 py-5">
-        <motion.h2 
+        <motion.h2
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.5 }}
@@ -96,7 +92,7 @@ export const MenuPage = ({ cart, onAddToCart }: MenuPageProps) => {
         >
           Menu
         </motion.h2>
-        
+
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -110,7 +106,7 @@ export const MenuPage = ({ cart, onAddToCart }: MenuPageProps) => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              <MenuItemCard item={item} onAdd={onAddToCart} theme={theme} />
+              <MenuItemCard item={item} onAdd={addToCart} />
             </motion.div>
           ))}
         </motion.div>
@@ -122,33 +118,23 @@ export const MenuPage = ({ cart, onAddToCart }: MenuPageProps) => {
           initial={{ y: 100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 100, opacity: 0 }}
-          className="fixed bottom-4 left-5 right-5 z-50"
+          className="fixed bottom-4 left-5 right-5 z-50 px-2"
         >
-          <motion.button
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            onClick={() => navigate('/cart')}
-            className="w-full bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white font-bold py-4 px-5 rounded-2xl shadow-2xl transition-all duration-200 flex items-center justify-between relative overflow-hidden"
+          <Button
+            size="lg"
+            onClick={() => navigate("/cart")}
+            className="px-2 w-full bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white shadow-2xl flex items-center justify-between"
           >
-            <div className="absolute inset-0 bg-white opacity-0 hover:opacity-10 transition-opacity"></div>
-            <div className="flex items-center gap-3 relative z-10">
+            <span className="flex items-center gap-3 px-2">
               <span className="text-2xl">🛒</span>
-              <span className="text-lg">View Cart</span>
-            </div>
-            <div className="relative z-10 flex items-center gap-2">
-              <motion.span 
-                key={cartItemCount}
-                initial={{ scale: 1.5 }}
-                animate={{ scale: 1 }}
-                className="bg-white text-purple-700 rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm"
-              >
-                {cartItemCount}
-              </motion.span>
-            </div>
-          </motion.button>
+              <span>View Cart</span>
+            </span>
+            <Badge variant="default" className="bg-white text-purple-700">
+              {cartItemCount}
+            </Badge>
+          </Button>
         </motion.div>
       )}
     </div>
   );
 };
-

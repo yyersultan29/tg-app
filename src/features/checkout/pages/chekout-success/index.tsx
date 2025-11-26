@@ -1,18 +1,27 @@
-import { motion } from 'framer-motion';
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useTelegramTheme } from '../hooks/useTelegramTheme';
+import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useTheme } from "@core/providers";
 
 export const SuccessPage = () => {
   const navigate = useNavigate();
-  const theme = useTelegramTheme();
+  const theme = useTheme();
   const [countdown, setCountdown] = useState(3);
 
+  // Generate confetti positions once on mount
+  const [confettiData] = useState(() =>
+    Array.from({ length: 16 }, () => ({
+      x: (Math.random() - 0.5) * 300,
+      y: (Math.random() - 0.5) * 300,
+      rotate: Math.random() * 360,
+    }))
+  );
+
   useEffect(() => {
-    window.Telegram?.WebApp?.HapticFeedback?.notificationOccurred('success');
-    
+    window.Telegram?.WebApp?.HapticFeedback?.notificationOccurred("success");
+
     const countdownInterval = setInterval(() => {
-      setCountdown(prev => {
+      setCountdown((prev) => {
         if (prev <= 1) {
           clearInterval(countdownInterval);
           return 0;
@@ -22,7 +31,7 @@ export const SuccessPage = () => {
     }, 1000);
 
     const timer = setTimeout(() => {
-      navigate('/');
+      navigate("/");
     }, 3000);
 
     return () => {
@@ -55,54 +64,54 @@ export const SuccessPage = () => {
         <motion.div
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
-          transition={{ 
-            type: "spring", 
+          transition={{
+            type: "spring",
             stiffness: 200,
-            damping: 15 
+            damping: 15,
           }}
           className="relative mb-6"
         >
           {/* Main Icon */}
           <motion.div
-            animate={{ 
+            animate={{
               rotate: [0, 10, -10, 10, 0],
             }}
-            transition={{ 
+            transition={{
               duration: 0.6,
-              delay: 0.3 
+              delay: 0.3,
             }}
             className="text-8xl mb-4 inline-block"
           >
             ✅
           </motion.div>
-          
+
           {/* Confetti effect */}
-          {[...Array(16)].map((_, i) => (
+          {confettiData.map((confetti, i) => (
             <motion.div
               key={i}
               initial={{ scale: 0, x: 0, y: 0, opacity: 1 }}
               animate={{
                 scale: [0, 1.2, 0],
-                x: [0, (Math.random() - 0.5) * 300],
-                y: [0, (Math.random() - 0.5) * 300],
+                x: [0, confetti.x],
+                y: [0, confetti.y],
                 opacity: [1, 1, 0],
-                rotate: [0, Math.random() * 360]
+                rotate: [0, confetti.rotate],
               }}
               transition={{
                 duration: 1.2,
                 delay: 0.2 + i * 0.04,
-                ease: "easeOut"
+                ease: "easeOut",
               }}
               className="absolute top-1/2 left-1/2 text-2xl pointer-events-none"
               style={{
-                transform: 'translate(-50%, -50%)'
+                transform: "translate(-50%, -50%)",
               }}
             >
-              {['🎉', '🎊', '✨', '⭐', '🌟', '💫'][i % 6]}
+              {["🎉", "🎊", "✨", "⭐", "🌟", "💫"][i % 6]}
             </motion.div>
           ))}
         </motion.div>
-        
+
         {/* Success Message */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -110,7 +119,10 @@ export const SuccessPage = () => {
           transition={{ delay: 0.5 }}
           className="mb-6"
         >
-          <h1 className="text-3xl font-bold mb-2" style={{ color: theme.textColor }}>
+          <h1
+            className="text-3xl font-bold mb-2"
+            style={{ color: theme.textColor }}
+          >
             Order Confirmed!
           </h1>
           <p className="text-base" style={{ color: theme.hintColor }}>
@@ -125,19 +137,19 @@ export const SuccessPage = () => {
           transition={{ delay: 0.6 }}
           className="space-y-3 mb-6"
         >
-          <div 
+          <div
             className="p-4 rounded-2xl relative overflow-hidden"
             style={{ backgroundColor: theme.secondaryBgColor }}
           >
             <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-green-500/50 via-emerald-500/50 to-teal-500/50"></div>
-            
+
             <div className="flex items-center gap-3">
               <motion.div
                 animate={{ rotate: 360 }}
-                transition={{ 
+                transition={{
                   duration: 2,
                   repeat: Infinity,
-                  ease: "linear" 
+                  ease: "linear",
                 }}
                 className="w-10 h-10 rounded-xl flex items-center justify-center text-xl flex-shrink-0"
                 style={{ backgroundColor: theme.bgColor }}
@@ -145,7 +157,10 @@ export const SuccessPage = () => {
                 ⏱️
               </motion.div>
               <div className="flex-1 text-left">
-                <p className="font-bold text-sm" style={{ color: theme.textColor }}>
+                <p
+                  className="font-bold text-sm"
+                  style={{ color: theme.textColor }}
+                >
                   Preparing your order
                 </p>
                 <p className="text-xs" style={{ color: theme.hintColor }}>
@@ -155,21 +170,24 @@ export const SuccessPage = () => {
             </div>
           </div>
 
-          <div 
+          <div
             className="p-4 rounded-2xl relative overflow-hidden"
             style={{ backgroundColor: theme.secondaryBgColor }}
           >
             <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-blue-500/50 via-indigo-500/50 to-purple-500/50"></div>
-            
+
             <div className="flex items-center gap-3">
-              <div 
+              <div
                 className="w-10 h-10 rounded-xl flex items-center justify-center text-xl flex-shrink-0"
                 style={{ backgroundColor: theme.bgColor }}
               >
                 📍
               </div>
               <div className="flex-1 text-left">
-                <p className="font-bold text-sm" style={{ color: theme.textColor }}>
+                <p
+                  className="font-bold text-sm"
+                  style={{ color: theme.textColor }}
+                >
                   Delivery to your location
                 </p>
                 <p className="text-xs" style={{ color: theme.hintColor }}>
@@ -186,13 +204,13 @@ export const SuccessPage = () => {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.8 }}
           className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm"
-          style={{ 
+          style={{
             backgroundColor: theme.bgColor,
-            color: theme.hintColor 
+            color: theme.hintColor,
           }}
         >
           <span>Returning to menu in</span>
-          <motion.span 
+          <motion.span
             key={countdown}
             initial={{ scale: 1.3 }}
             animate={{ scale: 1 }}
@@ -209,10 +227,10 @@ export const SuccessPage = () => {
           animate={{ opacity: 1, scaleX: 1 }}
           transition={{ delay: 0.9, duration: 3, ease: "linear" }}
           className="mt-6 h-1 rounded-full mx-auto"
-          style={{ 
-            width: '80%',
-            backgroundColor: theme.buttonColor + '30',
-            transformOrigin: 'left'
+          style={{
+            width: "80%",
+            backgroundColor: theme.buttonColor + "30",
+            transformOrigin: "left",
           }}
         >
           <motion.div
@@ -220,9 +238,9 @@ export const SuccessPage = () => {
             animate={{ scaleX: 1 }}
             transition={{ duration: 3, ease: "linear" }}
             className="h-full rounded-full"
-            style={{ 
+            style={{
               backgroundColor: theme.buttonColor,
-              transformOrigin: 'left'
+              transformOrigin: "left",
             }}
           ></motion.div>
         </motion.div>
