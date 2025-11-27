@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import { useTheme, useCart } from "@core/providers";
+import { useTheme, useCart, useTg } from "@core/providers";
 import { PageLayout } from "@core/layouts";
 import { Card, Button } from "@core/ui";
 import { TgButton } from "@/core/tg-ui";
@@ -8,11 +8,21 @@ import { TgButton } from "@/core/tg-ui";
 export const CartPage = () => {
   const navigate = useNavigate();
   const theme = useTheme();
+  const { tg } = useTg();
   const { cart: items, updateQuantity } = useCart();
   const total = items.reduce(
     (sum, item) => sum + item.price * item.quantity,
     0
   );
+
+  const onCheckout = () => {
+    tg?.showConfirm("Are you sure you want to checkout?", (confirmed) => {
+      if (confirmed) {
+        navigate("/checkout");
+        tg?.HapticFeedback?.impactOccurred("medium");
+      }
+    });
+  };
 
   const subtitle =
     items.length > 0
@@ -162,10 +172,7 @@ export const CartPage = () => {
           }}
         >
           <div className="px-5 py-4">
-            <TgButton.Main
-              onClick={() => navigate("/checkout")}
-              text="Checkout"
-            />
+            <TgButton.Main onClick={onCheckout} text="Checkout" />
             {/* Total row */}
             <div className="flex items-center justify-between mb-4">
               <div>
