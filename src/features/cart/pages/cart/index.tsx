@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useTheme, useCart } from "@core/providers";
 import { PageLayout } from "@core/layouts";
 import { Card, Button } from "@core/ui";
-import { ConfirmBtn } from "./components";
+import { TgButton } from "@/core/tg-ui";
 
 export const CartPage = () => {
   const navigate = useNavigate();
@@ -162,7 +162,10 @@ export const CartPage = () => {
           }}
         >
           <div className="px-5 py-4">
-            <ConfirmBtn />
+            <TgButton.Main
+              onClick={() => navigate("/checkout")}
+              text="Checkout"
+            />
             {/* Total row */}
             <div className="flex items-center justify-between mb-4">
               <div>
@@ -179,28 +182,18 @@ export const CartPage = () => {
                 </motion.p>
               </div>
 
-              <Button
-                size="md"
-                onClick={() => navigate("/checkout")}
-                className="relative overflow-hidden"
-              >
-                <motion.div
-                  animate={{
-                    backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
-                  }}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                    ease: "linear",
-                  }}
-                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
-                  style={{ backgroundSize: "200% 100%" }}
-                />
-                <span className="relative z-10 flex items-center gap-2">
-                  Checkout
-                  <span>→</span>
-                </span>
-              </Button>
+              <motion.div
+                animate={{
+                  backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "linear",
+                }}
+                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                style={{ backgroundSize: "200% 100%" }}
+              />
             </div>
           </div>
         </motion.div>

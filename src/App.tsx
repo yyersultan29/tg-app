@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -7,7 +6,7 @@ import {
 } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 
-import { ThemeProvider, CartProvider } from "@core/providers";
+import { ThemeProvider, CartProvider, TgProvider } from "@core/providers";
 import { CheckoutPage, SuccessPage } from "@/features/checkout/pages";
 import { MenuPage } from "@/features/menu/pages";
 import { CartPage } from "@/features/cart/pages";
@@ -28,23 +27,16 @@ function AppRoutes() {
 }
 
 function App() {
-  useEffect(() => {
-    // Initialize Telegram WebApp
-    const tg = window?.Telegram?.WebApp;
-    if (tg) {
-      tg.ready();
-      tg.expand();
-    }
-  }, []);
-
   return (
-    <ThemeProvider>
-      <CartProvider>
-        <Router>
-          <AppRoutes />
-        </Router>
-      </CartProvider>
-    </ThemeProvider>
+    <TgProvider>
+      <ThemeProvider>
+        <CartProvider>
+          <Router>
+            <AppRoutes />
+          </Router>
+        </CartProvider>
+      </ThemeProvider>
+    </TgProvider>
   );
 }
 

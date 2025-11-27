@@ -3,3 +3,5 @@ export { useTheme } from "./use-theme";
 
 export { CartProvider } from "./cart-provider";
 export { useCart } from "./use-cart";
+
+export * from "./tg-provider";
