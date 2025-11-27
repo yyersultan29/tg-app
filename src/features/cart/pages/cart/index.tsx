@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useTheme, useCart } from "@core/providers";
 import { PageLayout } from "@core/layouts";
 import { Card, Button } from "@core/ui";
+import { ConfirmBtn } from "./components";
 
 export const CartPage = () => {
   const navigate = useNavigate();
@@ -161,6 +162,7 @@ export const CartPage = () => {
           }}
         >
           <div className="px-5 py-4">
+            <ConfirmBtn />
             {/* Total row */}
             <div className="flex items-center justify-between mb-4">
               <div>

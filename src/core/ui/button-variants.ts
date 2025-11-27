@@ -5,8 +5,10 @@ export const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-[var(--button-color)] text-[var(--button-text-color)] shadow hover:opacity-90",
-        secondary: "bg-[var(--secondary-bg)] text-[var(--text-color)] shadow-sm hover:opacity-80",
+        default:
+          "bg-[var(--button-color)] text-[var(--button-text-color)] shadow hover:opacity-90",
+        secondary:
+          "bg-[var(--secondary-bg)] text-[var(--text-color)] shadow-sm hover:opacity-80",
         ghost: "hover:bg-white/10",
         outline: "border border-[var(--hint-color)]/40 hover:bg-white/5",
         link: "text-[var(--link-color)] underline-offset-4 hover:underline",
@@ -23,4 +25,3 @@ export const buttonVariants = cva(
     },
   }
 );
-
