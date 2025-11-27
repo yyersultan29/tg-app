@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "@core/providers";
+import { TgButton } from "../tg-ui";
 
 interface PageLayoutProps {
   children: ReactNode;
@@ -75,6 +76,7 @@ export const PageLayout = ({
           </div>
         </div>
       </motion.div>
+      <TgButton.Back onClick={handleBack} />
 
       {/* Content */}
       {children}
