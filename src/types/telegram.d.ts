@@ -2,6 +2,17 @@ declare global {
   interface Window {
     Telegram?: {
       WebApp?: {
+        showPopup(
+          options: {
+            title?: string;
+            message: string;
+            buttons: {
+              text: string;
+              type: "default" | "ok" | "close" | "cancel" | "destructive";
+            }[];
+          },
+          callback: (buttonId: string | null) => void
+        ): void;
         ready(): void;
         close(): void;
         expand(): void;
@@ -56,10 +67,22 @@ declare global {
           notificationOccurred(type: "error" | "success" | "warning"): void;
           selectionChanged(): void;
         };
+        showScanQrPopup(
+          params: {
+            text?: string; // текст в окне
+          },
+          callback?: (data: string | null) => void
+        ): void;
+
+        closeScanQrPopup(): void;
         showAlert(message: string, callback?: () => void): void;
         showConfirm(
           message: string,
           callback?: (confirmed: boolean) => void
+        ): void;
+        openInvoice(
+          invoiceLink: string,
+          callback: (result: "paid" | "failed") => void
         ): void;
       };
     };

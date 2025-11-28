@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import { useTheme, useCart } from "@core/providers";
+import { useTheme, useCart, useTg } from "@core/providers";
 import { PageLayout } from "@core/layouts";
 import {
   Card,
@@ -10,8 +10,10 @@ import {
   Button,
   Badge,
 } from "@core/ui";
+import { TgPopup, TgQrScanner } from "@/core/tg-ui";
 
 export const CheckoutPage = () => {
+  const { tg } = useTg();
   const navigate = useNavigate();
   const theme = useTheme();
   const { cart: items, clearCart } = useCart();
@@ -24,7 +26,7 @@ export const CheckoutPage = () => {
   const finalTotal = total + tax + delivery;
 
   const handleConfirm = () => {
-    window.Telegram?.WebApp?.HapticFeedback?.notificationOccurred("success");
+    tg?.HapticFeedback?.notificationOccurred("success");
     clearCart();
     navigate("/success");
   };
@@ -36,6 +38,18 @@ export const CheckoutPage = () => {
       showBackButton
       backPath="/cart"
     >
+      <TgPopup
+        title="Order confirmed"
+        message="Your order has been confirmed"
+        buttons={[{ text: "OK", type: "default", id: "OK" }]}
+        onResult={(id) => {
+          if (id === "OK") {
+            clearCart();
+            navigate("/success");
+          }
+        }}
+      />
+      <TgQrScanner text="Scan QR code" onScan={() => {}} onClose={() => {}} />
       <div className="px-5 py-5 space-y-4 pb-24">
         {/* Order Items */}
         <motion.div
