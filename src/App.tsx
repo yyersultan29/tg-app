@@ -12,7 +12,7 @@ import { MenuPage } from "@/features/menu/pages";
 import { CartPage } from "@/features/cart/pages";
 import { ProfilePage } from "@/features/profile/pages";
 import { CheckoutPage, SuccessPage } from "@/features/checkout/pages";
-import { PedometerPage } from "@/features/pedometer/pages";
+import { StepCounter } from "@/features/pedometer/pages";
 
 function AppRoutes() {
   const location = useLocation();
@@ -25,7 +25,7 @@ function AppRoutes() {
         <Route path="/checkout" element={<CheckoutPage />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/success" element={<SuccessPage />} />
-        <Route path="/pedometer" element={<PedometerPage />} />
+        <Route path="/pedometer" element={<StepCounter />} />
       </Routes>
     </AnimatePresence>
   );
