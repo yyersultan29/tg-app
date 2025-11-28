@@ -86,49 +86,30 @@ declare global {
           callback: (result: "paid" | "failed") => void
         ): void;
 
-        Accelerometer: AccelerometerData;
-        DeviceOrientation: DeviceOrientationData;
-        Gyroscope: GyroscopeData;
-
-        // Flags
-        isOrientationLocked: boolean;
-
-        // Motion methods
-        startAccelerometer(): void;
-        stopAccelerometer(): void;
-
-        startDeviceOrientation(): void;
-        stopDeviceOrientation(): void;
-
-        startGyroscope(): void;
-        stopGyroscope(): void;
-
-        lockOrientation(type: OrientationLockType): void;
-        unlockOrientation(): void;
+        platform: string;
+        /** Экземпляр акселерометра */
+        Accelerometer: TelegramAccelerometer;
 
         // Events
-        onEvent(event: MotionEventName, handler: () => void): void;
+        onEvent(
+          eventType: MotionEventName,
+          callback: (data: { x: number; y: number; z: number }) => void
+        ): void;
+
+        offEvent(
+          eventType: MotionEventName,
+          callback: (data: { x: number; y: number; z: number }) => void
+        ): void;
       };
     };
   }
 }
 
-interface AccelerometerData {
-  x: number;
-  y: number;
-  z: number;
-}
-
-interface DeviceOrientationData {
-  alpha: number;
-  beta: number;
-  gamma: number;
-}
-
-interface GyroscopeData {
-  x: number;
-  y: number;
-  z: number;
+interface TelegramAccelerometer {
+  start(): void;
+  stop(): void;
+  isSupported: boolean;
+  isStarted: boolean;
 }
 
 type MotionEventName =
@@ -144,7 +125,5 @@ type MotionEventName =
   | "gyroscopeStopped"
   | "gyroscopeChanged"
   | "gyroscopeFailed";
-
-type OrientationLockType = "portrait" | "landscape";
 
 export {};
