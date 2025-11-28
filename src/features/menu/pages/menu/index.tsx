@@ -51,6 +51,15 @@ export const MenuPage = () => {
         transition={{ type: "spring", stiffness: 100 }}
         className="bg-gradient-to-br from-orange-500 via-orange-600 to-red-600 px-4 py-6 pb-8 rounded-b-3xl shadow-2xl relative overflow-hidden"
       >
+        <Button
+          className="absolute top-4 right-4"
+          variant="secondary"
+          onClick={() => navigate("/profile")}
+          icon="👤"
+        >
+          Profile
+        </Button>
+
         {/* Decorative elements */}
         <div className="absolute top-0 right-0 w-32 h-32 bg-white opacity-5 rounded-full -mr-16 -mt-16"></div>
         <div className="absolute bottom-0 left-0 w-24 h-24 bg-white opacity-5 rounded-full -ml-12 -mb-12"></div>
@@ -76,9 +85,7 @@ export const MenuPage = () => {
           >
             Burger King
           </motion.h1>
-          <Button onClick={() => navigate("/profile")} icon="👤">
-            Profile
-          </Button>
+
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
