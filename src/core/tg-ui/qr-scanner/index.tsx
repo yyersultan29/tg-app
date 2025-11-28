@@ -15,9 +15,14 @@ export function TgQrScanner(props: TgQrScannerProps) {
       {
         text,
       },
-      (data: string | null) => {
-        if (data) onScan(data);
-        else onClose?.();
+      (data: string): boolean => {
+        if (data) {
+          onScan(data);
+          return true;
+        } else {
+          onClose?.();
+          return false;
+        }
       }
     );
 
