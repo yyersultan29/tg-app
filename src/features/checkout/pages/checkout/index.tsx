@@ -10,7 +10,6 @@ import {
   Button,
   Badge,
 } from "@core/ui";
-import { TgPopup, TgQrScanner } from "@/core/tg-ui";
 
 export const CheckoutPage = () => {
   const { tg } = useTg();
@@ -38,18 +37,6 @@ export const CheckoutPage = () => {
       showBackButton
       backPath="/cart"
     >
-      <TgPopup
-        title="Order confirmed"
-        message="Your order has been confirmed"
-        buttons={[{ text: "OK", type: "default", id: "OK" }]}
-        onResult={(id) => {
-          if (id === "OK") {
-            clearCart();
-            navigate("/success");
-          }
-        }}
-      />
-      <TgQrScanner text="Scan QR code" onScan={() => {}} onClose={() => {}} />
       <div className="px-5 py-5 space-y-4 pb-24">
         {/* Order Items */}
         <motion.div

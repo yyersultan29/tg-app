@@ -2,18 +2,15 @@ import { useState, type ReactNode } from "react";
 import type { CartEntity } from "@/features/cart/entities";
 import type { MenuEntity } from "@/features/menu/entities";
 import { CartContext } from "./cart-context";
-import { useTg } from "./tg-provider";
 
 interface CartProviderProps {
   children: ReactNode;
 }
 
 export const CartProvider = ({ children }: CartProviderProps) => {
-  const { tg } = useTg();
   const [cart, setCart] = useState<CartEntity[]>([]);
 
   const addToCart = (item: MenuEntity) => {
-    tg?.showAlert("Item added to cart");
     setCart((prevCart) => {
       const existingItem = prevCart.find((cartItem) => cartItem.id === item.id);
       if (existingItem) {

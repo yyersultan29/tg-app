@@ -1,7 +1,8 @@
 import { motion } from "framer-motion";
 import type { MenuEntity } from "@/features/menu/entities";
-import { BottomSheet, Button, Badge } from "@core/ui";
-import { useCart, useTheme } from "@core/providers";
+import { BottomSheet, Badge } from "@core/ui";
+import { useTheme } from "@core/providers";
+import { CartButton } from "@/core/controllers";
 
 interface ProductDetailSheetProps {
   product: MenuEntity | null;
@@ -14,28 +15,9 @@ export const ProductDetailSheet = ({
   isOpen,
   onClose,
 }: ProductDetailSheetProps) => {
-  const { cart, addToCart, updateQuantity } = useCart();
   const theme = useTheme();
 
   if (!product) return null;
-
-  const cartItem = cart.find((item) => item.id === product.id);
-  const quantity = cartItem?.quantity || 0;
-
-  const handleAdd = () => {
-    window.Telegram?.WebApp?.HapticFeedback?.impactOccurred("medium");
-    addToCart(product);
-  };
-
-  const handleIncrease = () => {
-    window.Telegram?.WebApp?.HapticFeedback?.impactOccurred("light");
-    updateQuantity(product.id, quantity + 1);
-  };
-
-  const handleDecrease = () => {
-    window.Telegram?.WebApp?.HapticFeedback?.impactOccurred("light");
-    updateQuantity(product.id, Math.max(0, quantity - 1));
-  };
 
   return (
     <BottomSheet isOpen={isOpen} onClose={onClose}>
@@ -107,72 +89,13 @@ export const ProductDetailSheet = ({
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="border-t pt-5"
+          className="border-t pt-5 flex items-center justify-between gap-3"
           style={{ borderColor: `${theme.hintColor}20` }}
         >
-          {quantity === 0 ? (
-            <Button size="lg" className="w-full" onClick={handleAdd} icon="🛒">
-              Add to Cart
-            </Button>
-          ) : (
-            <div className="space-y-3">
-              {/* Quantity Counter */}
-              <div className="flex items-center justify-between p-4 rounded-xl bg-[var(--secondary-bg)]">
-                <span className="text-sm font-medium text-[var(--text-color)]">
-                  Quantity
-                </span>
-                <div className="flex items-center gap-3">
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="w-9 h-9"
-                    onClick={handleDecrease}
-                  >
-                    −
-                  </Button>
-
-                  <div className="px-4 py-2 rounded-lg min-w-[3rem] text-center bg-[var(--bg-color)]">
-                    <motion.span
-                      key={quantity}
-                      initial={{ scale: 1.3 }}
-                      animate={{ scale: 1 }}
-                      className="font-bold text-lg text-[var(--text-color)]"
-                    >
-                      {quantity}
-                    </motion.span>
-                  </div>
-
-                  <Button
-                    size="sm"
-                    className="w-9 h-9"
-                    onClick={handleIncrease}
-                  >
-                    +
-                  </Button>
-                </div>
-              </div>
-
-              {/* Total & Add More */}
-              <div className="flex items-center gap-3">
-                <div className="flex-1 p-4 rounded-xl bg-[var(--secondary-bg)]">
-                  <p className="text-xs text-[var(--hint-color)] mb-1">
-                    Subtotal
-                  </p>
-                  <p className="text-xl font-bold text-[var(--link-color)]">
-                    ${(product.price * quantity).toFixed(2)}
-                  </p>
-                </div>
-                <Button
-                  variant="secondary"
-                  size="lg"
-                  className="h-full px-6"
-                  onClick={onClose}
-                >
-                  Done
-                </Button>
-              </div>
-            </div>
-          )}
+          <span className="text-lg font-bold text-[var(--link-color)]">
+            Total: ${product.price.toFixed(2)}
+          </span>
+          <CartButton item={product} />
         </motion.div>
       </div>
     </BottomSheet>

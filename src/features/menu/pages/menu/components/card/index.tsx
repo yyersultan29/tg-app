@@ -1,7 +1,8 @@
 import { motion } from "framer-motion";
 import type { MenuEntity } from "@/features/menu/entities";
-import { Card, Button, Badge } from "@core/ui";
-import { useCart } from "@core/providers";
+import { Card } from "@core/ui";
+
+import { CartButton } from "@/core/controllers";
 
 interface MenuItemCardProps {
   item: MenuEntity;
@@ -9,12 +10,6 @@ interface MenuItemCardProps {
 }
 
 export const MenuItemCard = ({ item, onClick }: MenuItemCardProps) => {
-  const { cart } = useCart();
-
-  // Проверяем есть ли товар в корзине
-  const cartItem = cart.find((cartItem) => cartItem.id === item.id);
-  const quantity = cartItem?.quantity || 0;
-
   const handleClick = () => {
     window.Telegram?.WebApp?.HapticFeedback?.impactOccurred("light");
     onClick();
@@ -44,22 +39,7 @@ export const MenuItemCard = ({ item, onClick }: MenuItemCardProps) => {
         </div>
       </div>
 
-      {quantity > 0 && (
-        <Badge variant="accent" className="mb-2 bg-purple-600 text-white">
-          {quantity} in cart
-        </Badge>
-      )}
-
-      <Button
-        size="sm"
-        className="w-full uppercase"
-        onClick={(e) => {
-          e.stopPropagation();
-          onClick();
-        }}
-      >
-        {quantity === 0 ? "ADD" : "VIEW"}
-      </Button>
+      <CartButton item={item} />
     </Card>
   );
 };
