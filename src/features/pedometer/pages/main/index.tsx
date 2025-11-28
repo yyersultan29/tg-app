@@ -1,6 +1,7 @@
 "use client";
 import { PageLayout } from "@/core/layouts";
 import { useTg } from "@/core/providers";
+import { Button } from "@/core/ui";
 import { useEffect, useState } from "react";
 
 export function StepCounter() {
@@ -65,6 +66,12 @@ export function StepCounter() {
             <div>Y: {acc.y.toFixed(2)}</div>
             <div>Z: {acc.z.toFixed(2)}</div>
           </div>
+        </div>
+
+        <div className="w-full h-screen flex items-center justify-center bg-[var(--tg-theme-bg-color)]">
+          <Button onClick={() => tg?.Accelerometer.start()}>
+            Начать отслеживание шагов
+          </Button>
         </div>
 
         {/* Круговой прогресс (пример) */}
