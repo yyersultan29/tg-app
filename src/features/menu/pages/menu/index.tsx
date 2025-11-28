@@ -52,7 +52,7 @@ export const MenuPage = () => {
         className="bg-gradient-to-br from-orange-500 via-orange-600 to-red-600 px-4 py-6 pb-8 rounded-b-3xl shadow-2xl relative overflow-hidden"
       >
         <Button
-          className="absolute top-4 right-4"
+          className="absolute top-4 right-4 z-50"
           variant="secondary"
           onClick={() => navigate("/profile")}
           icon="👤"
