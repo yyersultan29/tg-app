@@ -85,9 +85,66 @@ declare global {
           invoiceLink: string,
           callback: (result: "paid" | "failed") => void
         ): void;
+
+        Accelerometer: AccelerometerData;
+        DeviceOrientation: DeviceOrientationData;
+        Gyroscope: GyroscopeData;
+
+        // Flags
+        isOrientationLocked: boolean;
+
+        // Motion methods
+        startAccelerometer(): void;
+        stopAccelerometer(): void;
+
+        startDeviceOrientation(): void;
+        stopDeviceOrientation(): void;
+
+        startGyroscope(): void;
+        stopGyroscope(): void;
+
+        lockOrientation(type: OrientationLockType): void;
+        unlockOrientation(): void;
+
+        // Events
+        onEvent(event: MotionEventName, handler: () => void): void;
       };
     };
   }
 }
+
+interface AccelerometerData {
+  x: number;
+  y: number;
+  z: number;
+}
+
+interface DeviceOrientationData {
+  alpha: number;
+  beta: number;
+  gamma: number;
+}
+
+interface GyroscopeData {
+  x: number;
+  y: number;
+  z: number;
+}
+
+type MotionEventName =
+  | "accelerometerStarted"
+  | "accelerometerStopped"
+  | "accelerometerChanged"
+  | "accelerometerFailed"
+  | "deviceOrientationStarted"
+  | "deviceOrientationStopped"
+  | "deviceOrientationChanged"
+  | "deviceOrientationFailed"
+  | "gyroscopeStarted"
+  | "gyroscopeStopped"
+  | "gyroscopeChanged"
+  | "gyroscopeFailed";
+
+type OrientationLockType = "portrait" | "landscape";
 
 export {};

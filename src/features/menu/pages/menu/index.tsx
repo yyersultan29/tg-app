@@ -60,6 +60,15 @@ export const MenuPage = () => {
           Profile
         </Button>
 
+        <Button
+          className="absolute top-4 left-4 z-50"
+          variant="secondary"
+          onClick={() => navigate("/pedometer")}
+          icon="🚶‍♂️"
+        >
+          Шагомер
+        </Button>
+
         {/* Decorative elements */}
         <div className="absolute top-0 right-0 w-32 h-32 bg-white opacity-5 rounded-full -mr-16 -mt-16"></div>
         <div className="absolute bottom-0 left-0 w-24 h-24 bg-white opacity-5 rounded-full -ml-12 -mb-12"></div>
