@@ -1,6 +1,5 @@
 import { useTg } from "@/core/providers";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { StatusBadge } from "./components";
 
 const STEP_THRESHOLD = 2.5; // Новый, более низкий порог для ЛИНЕЙНОГО ускорения (без гравитации)
 const PEAK_DETECTION_STATE = {
@@ -153,8 +152,6 @@ export const PedometerPage = () => {
         </p>
       </header>
 
-      <StatusBadge />
-
       <main className="flex-grow flex flex-col justify-center items-center w-full max-w-lg mt-8">
         {/* Дисплей счетчика шагов */}
         <div className="w-full bg-white p-8 rounded-2xl shadow-xl text-center border-4 border-indigo-500/50">
@@ -179,7 +176,6 @@ export const PedometerPage = () => {
         <div className="w-full flex space-x-4 mt-8">
           <button
             onClick={handleStartStop}
-            disabled={!isTelegramApiAvailable}
             className={`flex-1 transition duration-200 ease-in-out transform shadow-lg text-white font-bold py-3 px-6 rounded-xl text-lg focus:outline-none focus:ring-4 focus:ring-offset-2 ${buttonColor} disabled:opacity-50 disabled:cursor-not-allowed`}
           >
             {buttonText}
