@@ -76,6 +76,9 @@ export const MenuPage = () => {
           >
             Burger King
           </motion.h1>
+          <Button onClick={() => navigate("/profile")} icon="👤">
+            Profile
+          </Button>
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}

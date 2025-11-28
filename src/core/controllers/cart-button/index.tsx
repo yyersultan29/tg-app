@@ -31,7 +31,7 @@ export const CartButton = ({ item }: { item: MenuEntity }) => {
 
   if (quantity === 0) {
     return (
-      <Button size="lg" className="w-full" onClick={handleAdd} icon="🛒">
+      <Button size="lg" className="w-full" onClick={handleAdd}>
         Add to Cart
       </Button>
     );

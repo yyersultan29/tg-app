@@ -7,9 +7,11 @@ import {
 import { AnimatePresence } from "framer-motion";
 
 import { ThemeProvider, CartProvider, TgProvider } from "@core/providers";
-import { CheckoutPage, SuccessPage } from "@/features/checkout/pages";
+
 import { MenuPage } from "@/features/menu/pages";
 import { CartPage } from "@/features/cart/pages";
+import { ProfilePage } from "@/features/profile/pages";
+import { CheckoutPage, SuccessPage } from "@/features/checkout/pages";
 
 function AppRoutes() {
   const location = useLocation();
@@ -20,6 +22,7 @@ function AppRoutes() {
         <Route path="/" element={<MenuPage />} />
         <Route path="/cart" element={<CartPage />} />
         <Route path="/checkout" element={<CheckoutPage />} />
+        <Route path="/profile" element={<ProfilePage />} />
         <Route path="/success" element={<SuccessPage />} />
       </Routes>
     </AnimatePresence>

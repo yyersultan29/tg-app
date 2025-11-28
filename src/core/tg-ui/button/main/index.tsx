@@ -1,5 +1,3 @@
-"use client";
-
 import { useEffect } from "react";
 import { useTelegram } from "@core/hooks";
 import type { TgButtonMainProps } from "./types";
