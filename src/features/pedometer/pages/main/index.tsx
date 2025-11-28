@@ -1,6 +1,8 @@
 "use client";
 import { useTg } from "@/core/providers";
+import { Button } from "@/core/ui";
 import { useEffect, useState, useRef } from "react";
+import { motion } from "framer-motion";
 
 export function StepCounter() {
   const { tg } = useTg();
@@ -77,86 +79,114 @@ export function StepCounter() {
   };
 
   return (
-    <div className="p-4 space-y-6 bg-[var(--tg-theme-bg-color)] min-h-screen flex flex-col items-center justify-center">
-      {/* Кнопки управления */}
-      <div className="flex gap-4">
+    <div className="min-h-screen px-4 py-6 bg-[var(--tg-theme-bg-color)] flex flex-col items-center">
+      {/* Header */}
+      <motion.h1
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="text-2xl font-bold text-[var(--tg-theme-text-color)] mb-6"
+      >
+        Шагомер
+      </motion.h1>
+
+      {/* Controls */}
+      <motion.div
+        className="flex gap-4 mb-8"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+      >
         {!isActive ? (
-          <button
+          <Button
             onClick={handleStart}
-            className="px-6 py-3 bg-[var(--tg-theme-button-color)] text-[var(--tg-theme-button-text-color)] font-bold rounded-xl shadow"
+            className="px-6 py-3 text-lg rounded-xl shadow-lg bg-[var(--tg-theme-button-color)] text-[var(--tg-theme-button-text-color)]"
           >
-            🚶 Начать шагомер
-          </button>
+            🚶 Начать
+          </Button>
         ) : (
           <>
-            <button
+            <Button
               onClick={handleStop}
-              className="px-6 py-3 bg-red-500 text-white font-bold rounded-xl shadow"
+              className="px-5 py-3 rounded-xl bg-gray-200 text-black shadow"
             >
-              ⏹️ Остановить
-            </button>
-            <button
+              ⏹️ Стоп
+            </Button>
+            <Button
               onClick={handleReset}
-              className="px-6 py-3 bg-gray-500 text-white font-bold rounded-xl shadow"
+              className="px-5 py-3 rounded-xl bg-gray-200 text-black shadow"
             >
               🔄 Сброс
-            </button>
+            </Button>
           </>
         )}
-      </div>
+      </motion.div>
 
-      {/* Статус */}
+      {/* Active status */}
       {isActive && (
-        <div className="text-[var(--tg-theme-hint-color)] text-sm">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="text-sm text-[var(--tg-theme-hint-color)] mb-4"
+        >
           ✅ Акселерометр активен
-        </div>
+        </motion.div>
       )}
 
-      {/* Счётчик шагов */}
-      <div className="bg-[var(--tg-theme-bg-color)] border border-[var(--tg-theme-section-separator-color)] rounded-2xl p-6 shadow text-center w-72">
-        <h1 className="text-lg font-semibold text-[var(--tg-theme-text-color)]">
-          Шаги
-        </h1>
-        <p className="text-5xl font-bold text-[var(--tg-theme-button-color)] mt-4">
-          {steps}
-        </p>
-      </div>
-
-      {/* Данные акселерометра */}
-      <div className="bg-[var(--tg-theme-bg-color)] border border-[var(--tg-theme-section-separator-color)] rounded-2xl p-4 shadow mt-4 w-72">
-        <h2 className="text-md font-semibold text-[var(--tg-theme-hint-color)]">
-          Accelerometer
+      {/* Steps card */}
+      <motion.div
+        initial={{ scale: 0.8, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ type: "spring", stiffness: 100 }}
+        className="w-72 p-6 rounded-3xl backdrop-blur-xl bg-white/10 border border-white/20 shadow-xl"
+      >
+        <h2 className="text-lg font-semibold text-[var(--tg-theme-text-color)] text-center">
+          Пройдено шагов
         </h2>
-        <div className="grid grid-cols-3 gap-2 text-center text-[var(--tg-theme-text-color)] mt-2">
-          <div>
-            <div className="text-xs opacity-60">X</div>
-            <div className="font-mono">{acc.x.toFixed(2)}</div>
-          </div>
-          <div>
-            <div className="text-xs opacity-60">Y</div>
-            <div className="font-mono">{acc.y.toFixed(2)}</div>
-          </div>
-          <div>
-            <div className="text-xs opacity-60">Z</div>
-            <div className="font-mono">{acc.z.toFixed(2)}</div>
-          </div>
+
+        <motion.p
+          key={steps}
+          initial={{ scale: 0.7, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ type: "spring", stiffness: 200 }}
+          className="text-6xl font-extrabold text-[var(--tg-theme-button-color)] text-center mt-4"
+        >
+          {steps}
+        </motion.p>
+      </motion.div>
+
+      {/* Accelerometer card */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="w-72 p-5 mt-6 rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 shadow"
+      >
+        <h3 className="text-md text-[var(--tg-theme-hint-color)] font-semibold">
+          Accelerometer
+        </h3>
+
+        <div className="grid grid-cols-3 gap-2 text-center mt-3">
+          {["X", "Y", "Z"].map((axis, idx) => {
+            const value = idx === 0 ? acc.x : idx === 1 ? acc.y : acc.z;
+            return (
+              <div key={axis}>
+                <div className="text-xs opacity-50">{axis}</div>
+                <div className="font-mono text-[var(--tg-theme-text-color)]">
+                  {value.toFixed(2)}
+                </div>
+              </div>
+            );
+          })}
         </div>
 
-        {/* Величина ускорения */}
-        <div className="mt-3 pt-3 border-t border-[var(--tg-theme-section-separator-color)]">
-          <div className="text-xs opacity-60">Magnitude</div>
-          <div className="font-mono font-bold">
-            {Math.sqrt(acc.x * acc.x + acc.y * acc.y + acc.z * acc.z).toFixed(
-              2
-            )}{" "}
-            m/s²
+        <div className="border-t border-white/10 mt-4 pt-3">
+          <div className="text-xs opacity-50">Magnitude</div>
+          <div className="font-mono font-bold text-[var(--tg-theme-text-color)]">
+            {Math.sqrt(acc.x ** 2 + acc.y ** 2 + acc.z ** 2).toFixed(2)} m/s²
           </div>
         </div>
-      </div>
+      </motion.div>
 
-      {/* Инструкция */}
-      <p className="text-[var(--tg-theme-hint-color)] text-sm text-center max-w-md">
-        💡 Нажмите "Начать шагомер", положите телефон в карман и начните ходить
+      <p className="text-[var(--tg-theme-hint-color)] text-center text-sm mt-6">
+        💡 Положите телефон в карман и начинайте ходьбу
       </p>
     </div>
   );
