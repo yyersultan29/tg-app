@@ -106,10 +106,18 @@ declare global {
 }
 
 interface TelegramAccelerometer {
-  start(): void;
+  start(
+    params?: AccelerometerStartParams,
+    callback?: (success: boolean) => void
+  ): Accelerometer;
+
   stop(): void;
   isSupported: boolean;
   isStarted: boolean;
+}
+interface AccelerometerStartParams {
+  /** Интервал обновления в миллисекундах (20–1000). По умолчанию 1000 */
+  refresh_rate?: number;
 }
 
 type MotionEventName =
