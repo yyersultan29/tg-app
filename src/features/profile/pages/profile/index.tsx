@@ -33,13 +33,19 @@ export function ProfilePage() {
             value={tg?.initDataUnsafe?.user?.username || ""}
           />
           <InfoRow label="Статус" value="Постоянный клиент" />
-          <InfoRow label="Баланс" value="4 500 ₸" />
+          <InfoRow
+            label="Premium"
+            value={tg?.initDataUnsafe?.user?.is_premium ? "⭐ " : "👤"}
+          />
         </div>
 
         {/* Actions */}
         <div className="mt-6 space-y-3">
-          <Button className="w-full">Пополнить баланс</Button>
-          <Button variant="secondary" className="w-full">
+          <Button
+            variant="secondary"
+            className="w-full"
+            onClick={() => tg?.close()}
+          >
             Выйти
           </Button>
         </div>
