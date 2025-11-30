@@ -13,6 +13,7 @@ import { CartPage } from "@/features/cart/pages";
 import { ProfilePage } from "@/features/profile/pages";
 import { CheckoutPage, SuccessPage } from "@/features/checkout/pages";
 import { StepCounter } from "@/features/pedometer/pages";
+import { TonCheckoutPage } from "@/features/ton-checkout/pages";
 
 function AppRoutes() {
   const location = useLocation();
@@ -26,6 +27,7 @@ function AppRoutes() {
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/success" element={<SuccessPage />} />
         <Route path="/pedometer" element={<StepCounter />} />
+        <Route path="/ton-checkout" element={<TonCheckoutPage />} />
       </Routes>
     </AnimatePresence>
   );

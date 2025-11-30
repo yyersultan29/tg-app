@@ -27,7 +27,8 @@ export const CheckoutPage = () => {
   const handleConfirm = () => {
     tg?.HapticFeedback?.notificationOccurred("success");
     clearCart();
-    navigate("/success");
+    navigate("/ton-checkout");
+    // navigate("/success");
   };
 
   return (
