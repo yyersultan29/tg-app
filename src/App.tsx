@@ -15,6 +15,7 @@ import { CheckoutPage, SuccessPage } from "@/features/checkout/pages";
 import { StepCounter } from "@/features/pedometer/pages";
 import { TonCheckoutPage } from "@/features/ton-checkout/pages";
 import { TonConnectUIProvider } from "@tonconnect/ui-react";
+import { TON_MANIFEST_URL } from "@core/config";
 
 function AppRoutes() {
   const location = useLocation();
@@ -37,7 +38,7 @@ function AppRoutes() {
 function App() {
   return (
     <TgProvider>
-      <TonConnectUIProvider manifestUrl="https://tg-app-eta.vercel.app/tonconnect-manifest.json">
+      <TonConnectUIProvider manifestUrl={TON_MANIFEST_URL}>
         <ThemeProvider>
           <CartProvider>
             <Router>

@@ -14,13 +14,35 @@ export const CartPage = () => {
     (sum, item) => sum + item.price * item.quantity,
     0
   );
-
+  const bio = tg?.BiometricManager;
   const onCheckout = () => {
-    tg?.showConfirm("Are you sure you want to checkout?", (confirmed) => {
-      if (confirmed) {
-        navigate("/checkout");
-        tg?.HapticFeedback?.impactOccurred("medium");
+    if (!bio) {
+      console.error("BiometricManager недоступен");
+      return;
+    }
+
+    // 1) Инициализация
+    bio.init(() => {
+      console.log("Biometric initialized");
+
+      // 2) Проверяем доступность FaceID/TouchID
+      if (!bio.isBiometricAvailable) {
+        alert("Биометрическая аутентификация недоступна");
+        return;
       }
+
+      // 3) Запрашиваем авторизацию
+      bio.authenticate(
+        { reason: "Подтвердите действие через Face ID" },
+        (success) => {
+          if (!success) {
+            tg.showAlert("Не удалось пройти Face ID");
+            return;
+          }
+
+          navigate("/checkout"); // или router.push
+        }
+      );
     });
   };
 
