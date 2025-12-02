@@ -4,46 +4,106 @@ import { useTheme, useCart, useTg } from "@core/providers";
 import { PageLayout } from "@core/layouts";
 import { Card, Button } from "@core/ui";
 import { TgButton } from "@/core/tg-ui";
+import { useState } from "react";
 
 export const CartPage = () => {
   const navigate = useNavigate();
   const theme = useTheme();
   const { tg } = useTg();
+  const [error, setError] = useState<string>("");
+  const [status, setStatus] = useState<string>("idle");
   const { cart: items, updateQuantity } = useCart();
   const total = items.reduce(
     (sum, item) => sum + item.price * item.quantity,
     0
   );
-  const bio = tg?.BiometricManager;
-  const onCheckout = () => {
-    if (!bio) {
-      console.error("BiometricManager недоступен");
+
+  const handleCheckout = async () => {
+    if (!tg) {
+      setError("Telegram WebApp недоступен");
       return;
     }
 
-    // 1) Инициализация
-    bio.init(() => {
-      console.log("Biometric initialized");
+    const bio = tg.BiometricManager;
 
-      // 2) Проверяем доступность FaceID/TouchID
+    if (!bio) {
+      setError("BiometricManager недоступен на этом устройстве");
+      return;
+    }
+
+    setStatus("initializing");
+    setError("");
+
+    try {
+      // 1) Сначала инициализируем
+      await new Promise((resolve) => {
+        bio.init(() => {
+          console.log("Biometric initialized");
+          resolve(void 0);
+        });
+      });
+
+      // 2) Проверяем доступность
       if (!bio.isBiometricAvailable) {
-        alert("Биометрическая аутентификация недоступна");
+        setError("Биометрия недоступна на устройстве");
+        setStatus("idle");
         return;
       }
 
-      // 3) Запрашиваем авторизацию
-      bio.authenticate(
-        { reason: "Подтвердите действие через Face ID" },
-        (success) => {
-          if (!success) {
-            tg.showAlert("Не удалось пройти Face ID");
-            return;
-          }
+      // 3) Проверяем, предоставлен ли доступ
+      if (!bio.isAccessGranted) {
+        // Запрашиваем доступ
+        await new Promise((resolve, reject) => {
+          bio.requestAccess({ reason: "Для безопасной оплаты" }, (granted) => {
+            if (granted) {
+              resolve(void 0);
+            } else {
+              reject(new Error("Доступ к биометрии не предоставлен"));
+            }
+          });
+        });
+      }
 
-          navigate("/checkout"); // или router.push
+      // 4) Аутентификация
+      setStatus("authenticating");
+
+      bio.authenticate(
+        { reason: "Подтвердите оплату через Face ID" },
+        (success, token) => {
+          if (success) {
+            console.log("Biometric success, token:", token);
+            setStatus("success");
+
+            // Редирект или дальнейшие действия
+            setTimeout(() => {
+              tg.openLink("https://example.com/checkout", {
+                try_instant_view: true,
+              });
+            }, 500);
+          } else {
+            setError("Аутентификация не пройдена");
+            setStatus("idle");
+          }
         }
       );
-    });
+    } catch (err) {
+      console.error("Biometric error:", err);
+      setError((err as Error).message || "Произошла ошибка");
+      setStatus("idle");
+    }
+  };
+
+  const getButtonText = () => {
+    switch (status) {
+      case "initializing":
+        return "Инициализация...";
+      case "authenticating":
+        return "Ожидание Face ID...";
+      case "success":
+        return "✓ Успешно";
+      default:
+        return "Оформить заказ";
+    }
   };
 
   const subtitle =
@@ -100,7 +160,7 @@ export const CartPage = () => {
                 >
                   <Card gradient="purple" padding="md">
                     <div className="flex items-start gap-4 mt-1">
-                      {/* Emoji */}
+                      {/*  */}
                       <motion.div
                         whileHover={{ scale: 1.1, rotate: 5 }}
                         className="text-5xl flex-shrink-0"
@@ -194,7 +254,8 @@ export const CartPage = () => {
           }}
         >
           <div className="px-5 py-4">
-            <TgButton.Main onClick={onCheckout} text="Checkout" />
+            <TgButton.Main onClick={handleCheckout} text={getButtonText()} />
+            {error && <p className="text-xs text-red-500 mt-2">{error}</p>}
             {/* Total row */}
             <div className="flex items-center justify-between mb-4">
               <div>
