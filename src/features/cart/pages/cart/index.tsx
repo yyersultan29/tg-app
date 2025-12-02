@@ -27,7 +27,7 @@ export const CartPage = () => {
     const bio = tg.BiometricManager;
 
     if (!bio) {
-      setError("BiometricManager недоступен на этом устройстве");
+      setError("BiometricManager недоступен");
       return;
     }
 
@@ -35,56 +35,45 @@ export const CartPage = () => {
     setError("");
 
     try {
-      // 1) Сначала инициализируем
+      // ✔ Просто заново инициализируем — этого достаточно
       await new Promise((resolve) => {
-        bio.init(() => {
-          console.log("Biometric initialized");
-          resolve(void 0);
-        });
+        bio.init(() => resolve(null));
       });
 
-      // 2) Проверяем доступность
       if (!bio.isBiometricAvailable) {
-        setError("Биометрия недоступна на устройстве");
+        setError("Биометрия недоступна");
         setStatus("idle");
         return;
       }
 
-      // 3) Проверяем, предоставлен ли доступ
-      if (!bio.isAccessGranted) {
-        // Запрашиваем доступ
-        await new Promise((resolve, reject) => {
-          bio.requestAccess({ reason: "Для безопасной оплаты" }, (granted) => {
-            if (granted) {
-              resolve(void 0);
-            } else {
-              reject(new Error("Доступ к биометрии не предоставлен"));
-            }
-          });
+      // ✔ Телеграм рекомендует ВСЕГДА вызывать requestAccess перед authenticate
+      await new Promise((resolve, reject) => {
+        bio.requestAccess({ reason: "Разрешите биометрию" }, (granted) => {
+          // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+          granted ? resolve(null) : reject("Доступ не предоставлен");
         });
-      }
+      });
 
-      // 4) Аутентификация
       setStatus("authenticating");
 
       bio.authenticate(
         { reason: "Подтвердите оплату через Face ID" },
         (success, token) => {
-          if (success) {
-            console.log("Biometric success, token:", token);
-            setStatus("success");
-
-            navigate("/checkout");
-            tg.HapticFeedback?.impactOccurred("medium");
-          } else {
+          if (!success) {
             setError("Аутентификация не пройдена");
             setStatus("idle");
+            return;
           }
+
+          console.log("Biometric token:", token);
+          setStatus("success");
+
+          tg.HapticFeedback?.impactOccurred("medium");
+          navigate("/checkout");
         }
       );
     } catch (err) {
-      console.error("Biometric error:", err);
-      setError((err as Error).message || "Произошла ошибка");
+      setError((err as Error).message || "Ошибка");
       setStatus("idle");
     }
   };
