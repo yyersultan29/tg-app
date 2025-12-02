@@ -74,12 +74,8 @@ export const CartPage = () => {
             console.log("Biometric success, token:", token);
             setStatus("success");
 
-            // Редирект или дальнейшие действия
-            setTimeout(() => {
-              tg.openLink("https://example.com/checkout", {
-                try_instant_view: true,
-              });
-            }, 500);
+            navigate("/checkout");
+            tg.HapticFeedback?.impactOccurred("medium");
           } else {
             setError("Аутентификация не пройдена");
             setStatus("idle");
