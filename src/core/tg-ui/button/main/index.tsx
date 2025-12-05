@@ -1,5 +1,7 @@
 import { useEffect } from "react";
+
 import { useTelegram } from "@core/hooks";
+
 import type { TgButtonMainProps } from "./types";
 
 export function TgButtonMain({ text, onClick }: TgButtonMainProps) {

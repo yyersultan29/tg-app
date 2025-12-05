@@ -1,7 +1,8 @@
-import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+
 import { useTheme } from "@core/providers";
+import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 export const SuccessPage = () => {
   const navigate = useNavigate();

@@ -1,10 +1,13 @@
+import { useState } from "react";
+
+import { PageLayout } from "@core/layouts";
+import { useTheme, useCart, useTg } from "@core/providers";
+import { Card, Button } from "@core/ui";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import { useTheme, useCart, useTg } from "@core/providers";
-import { PageLayout } from "@core/layouts";
-import { Card, Button } from "@core/ui";
+
 import { TgButton } from "@/core/tg-ui";
-import { useState } from "react";
+
 
 export const CartPage = () => {
   const navigate = useNavigate();

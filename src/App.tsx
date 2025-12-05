@@ -1,21 +1,20 @@
+import { TON_MANIFEST_URL } from "@core/config";
+import { ThemeProvider, CartProvider, TgProvider } from "@core/providers";
+import { TonConnectUIProvider } from "@tonconnect/ui-react";
+import { AnimatePresence } from "framer-motion";
 import {
   BrowserRouter as Router,
   Routes,
   Route,
   useLocation,
 } from "react-router-dom";
-import { AnimatePresence } from "framer-motion";
 
-import { ThemeProvider, CartProvider, TgProvider } from "@core/providers";
-
-import { MenuPage } from "@/features/menu/pages";
 import { CartPage } from "@/features/cart/pages";
-import { ProfilePage } from "@/features/profile/pages";
 import { CheckoutPage, SuccessPage } from "@/features/checkout/pages";
+import { MenuPage } from "@/features/menu/pages";
 import { StepCounter } from "@/features/pedometer/pages";
+import { ProfilePage } from "@/features/profile/pages";
 import { TonCheckoutPage } from "@/features/ton-checkout/pages";
-import { TonConnectUIProvider } from "@tonconnect/ui-react";
-import { TON_MANIFEST_URL } from "@core/config";
 
 function AppRoutes() {
   const location = useLocation();

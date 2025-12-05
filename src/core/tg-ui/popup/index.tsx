@@ -1,6 +1,8 @@
-import { useTg } from "@/core/providers";
 import { useEffect } from "react";
+
 import type { TgPopupProps } from "./types";
+
+import { useTg } from "@/core/providers";
 
 export function TgPopup(props: TgPopupProps) {
   const { title, message, buttons, onResult } = props;

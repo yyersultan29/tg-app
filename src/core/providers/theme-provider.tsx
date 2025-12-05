@@ -1,7 +1,9 @@
 import type { ReactNode } from "react";
+
 import { useTelegramTheme } from "@core/hooks/use-theme";
-import { ThemeContext } from "./theme-context";
+
 import { CssVarsProvider } from "./css-vars-provider";
+import { ThemeContext } from "./theme-context";
 
 interface ThemeProviderProps {
   children: ReactNode;

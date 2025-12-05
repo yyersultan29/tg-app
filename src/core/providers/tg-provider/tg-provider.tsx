@@ -1,5 +1,7 @@
 import { useEffect, useMemo } from "react";
+
 import { TgContext } from "./tg-context";
+
 import type { TelegramWebApp } from "./tg-context";
 
 export function TgProvider({ children }: { children: React.ReactNode }) {

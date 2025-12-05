@@ -1,12 +1,16 @@
 import { useState } from "react";
-import { motion, type Variants } from "framer-motion";
-import { useNavigate } from "react-router-dom";
-import { MenuItemCard } from "./components";
-import { ProductDetailSheet } from "@/features/menu/components";
-import { menuItems } from "@data/menuData";
-import type { MenuEntity } from "@/features/menu/entities";
+
 import { useTheme, useCart } from "@core/providers";
 import { Badge, Button } from "@core/ui";
+import { menuItems } from "@data/menuData";
+import { motion, type Variants } from "framer-motion";
+import { useNavigate } from "react-router-dom";
+
+import { MenuItemCard } from "./components";
+
+import type { MenuEntity } from "@/features/menu/entities";
+
+import { ProductDetailSheet } from "@/features/menu/components";
 
 export const MenuPage = () => {
   const navigate = useNavigate();

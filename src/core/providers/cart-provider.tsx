@@ -1,7 +1,9 @@
 import { useState, type ReactNode } from "react";
+
+import { CartContext } from "./cart-context";
+
 import type { CartEntity } from "@/features/cart/entities";
 import type { MenuEntity } from "@/features/menu/entities";
-import { CartContext } from "./cart-context";
 
 interface CartProviderProps {
   children: ReactNode;

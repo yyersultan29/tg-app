@@ -1,7 +1,9 @@
 import type { ReactNode } from "react";
+
+import { useTheme } from "@core/providers";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import { useTheme } from "@core/providers";
+
 import { TgButton } from "../tg-ui";
 
 interface PageLayoutProps {

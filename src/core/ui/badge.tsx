@@ -1,8 +1,11 @@
 import * as React from "react";
+
 import { type VariantProps } from "class-variance-authority";
 import { motion } from "framer-motion";
-import { cn } from "@/lib/utils";
+
 import { badgeVariants } from "./badge-variants";
+
+import { cn } from "@/lib/utils";
 
 export interface BadgeProps
   extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onAnimationStart' | 'onDrag' | 'onDragStart' | 'onDragEnd'>,

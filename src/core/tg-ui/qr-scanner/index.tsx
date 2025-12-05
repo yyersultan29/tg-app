@@ -1,7 +1,9 @@
 "use client";
 import { useEffect } from "react";
-import { useTg } from "@/core/providers";
+
 import type { TgQrScannerProps } from "./types";
+
+import { useTg } from "@/core/providers";
 
 export function TgQrScanner(props: TgQrScannerProps) {
   const { text = "Scan QR code", onScan, onClose } = props;

@@ -1,8 +1,10 @@
 "use client";
+import { useEffect, useState, useRef } from "react";
+
+import { motion } from "framer-motion";
+
 import { useTg } from "@/core/providers";
 import { Button } from "@/core/ui";
-import { useEffect, useState, useRef } from "react";
-import { motion } from "framer-motion";
 
 export function StepCounter() {
   const { tg } = useTg();

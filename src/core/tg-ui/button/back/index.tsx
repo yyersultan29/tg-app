@@ -1,7 +1,8 @@
 import { useEffect } from "react";
 
-import { useTelegram } from "@/core/hooks";
 import type { TgButtonBackProps } from "./types";
+
+import { useTelegram } from "@/core/hooks";
 
 export function TgButtonBack({ onClick }: TgButtonBackProps) {
   const { tg } = useTelegram();

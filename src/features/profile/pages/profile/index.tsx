@@ -1,9 +1,10 @@
 "use client";
 
+import { InfoRow } from "../../components";
+
+import { PageLayout } from "@/core/layouts";
 import { useTg } from "@/core/providers";
 import { Button } from "@/core/ui";
-import { InfoRow } from "../../components";
-import { PageLayout } from "@/core/layouts";
 
 export function ProfilePage() {
   const { tg } = useTg();

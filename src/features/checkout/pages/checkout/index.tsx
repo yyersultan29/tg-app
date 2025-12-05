@@ -1,7 +1,5 @@
-import { motion } from "framer-motion";
-import { useNavigate } from "react-router-dom";
-import { useTheme, useCart, useTg } from "@core/providers";
 import { PageLayout } from "@core/layouts";
+import { useTheme, useCart, useTg } from "@core/providers";
 import {
   Card,
   CardHeader,
@@ -10,6 +8,8 @@ import {
   Button,
   Badge,
 } from "@core/ui";
+import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 export const CheckoutPage = () => {
   const { tg } = useTg();

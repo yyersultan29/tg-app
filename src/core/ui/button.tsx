@@ -1,8 +1,12 @@
 import * as React from "react";
-import { motion, type HTMLMotionProps } from "framer-motion";
+
 import { type VariantProps } from "class-variance-authority";
-import { cn } from "@/lib/utils";
+import { motion, type HTMLMotionProps } from "framer-motion";
+
 import { buttonVariants } from "./button-variants";
+
+import { cn } from "@/lib/utils";
+
 
 export interface ButtonProps
   extends Omit<HTMLMotionProps<"button">, "children">,

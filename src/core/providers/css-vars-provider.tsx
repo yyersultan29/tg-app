@@ -1,4 +1,5 @@
 import { useEffect, type ReactNode } from "react";
+
 import { useTelegramTheme } from "@core/hooks/use-theme";
 
 interface CssVarsProviderProps {

@@ -1,6 +1,8 @@
 import { useEffect } from "react";
-import { useTg } from "@/core/providers";
+
 import type { TgPaymentProps } from "./types";
+
+import { useTg } from "@/core/providers";
 
 export function TgPayment(props: TgPaymentProps) {
   const { invoiceLink, onSuccess, onFail } = props;

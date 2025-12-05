@@ -1,6 +1,7 @@
-import { motion } from "framer-motion";
-import type { MenuEntity } from "@/features/menu/entities";
 import { Card } from "@core/ui";
+import { motion } from "framer-motion";
+
+import type { MenuEntity } from "@/features/menu/entities";
 
 import { CartButton } from "@/core/controllers";
 

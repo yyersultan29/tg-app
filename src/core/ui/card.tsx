@@ -1,6 +1,8 @@
 import * as React from "react";
-import { motion } from "framer-motion";
+
 import { cva, type VariantProps } from "class-variance-authority";
+import { motion } from "framer-motion";
+
 import { cn } from "@/lib/utils";
 
 const cardVariants = cva(

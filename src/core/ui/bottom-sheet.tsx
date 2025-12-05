@@ -1,6 +1,7 @@
 import * as React from "react";
-import { motion, AnimatePresence } from "framer-motion";
+
 import { useTheme } from "@core/providers";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface BottomSheetProps {
   isOpen: boolean;

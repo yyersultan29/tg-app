@@ -1,7 +1,9 @@
-import { motion } from "framer-motion";
-import type { MenuEntity } from "@/features/menu/entities";
-import { BottomSheet, Badge } from "@core/ui";
 import { useTheme } from "@core/providers";
+import { BottomSheet, Badge } from "@core/ui";
+import { motion } from "framer-motion";
+
+import type { MenuEntity } from "@/features/menu/entities";
+
 import { CartButton } from "@/core/controllers";
 
 interface ProductDetailSheetProps {

@@ -1,5 +1,5 @@
-import { TgButtonMain } from "./main";
 import { TgButtonBack } from "./back";
+import { TgButtonMain } from "./main";
 
 export const TgButton = {
   Main: TgButtonMain,

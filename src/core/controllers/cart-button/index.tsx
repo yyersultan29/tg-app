@@ -1,8 +1,10 @@
-import { useCart, useTg } from "@/core/providers";
-import { Button } from "@/core/ui";
+import { motion } from "framer-motion";
+
 import type { MenuEntity } from "@/features/menu/entities";
 
-import { motion } from "framer-motion";
+import { useCart, useTg } from "@/core/providers";
+import { Button } from "@/core/ui";
+
 
 export const CartButton = ({ item }: { item: MenuEntity }) => {
   const { tg } = useTg();
