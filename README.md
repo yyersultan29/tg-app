@@ -96,6 +96,7 @@ npm run preview
 ## 🎭 Анимации
 
 ### Типы анимаций:
+
 - **Fade In/Out** - Плавное появление/исчезновение
 - **Slide** - Скольжение элементов
 - **Scale** - Масштабирование при взаимодействии
@@ -140,8 +141,8 @@ window.Telegram.WebApp.expand();
 const theme = window.Telegram.WebApp.themeParams;
 
 // Тактильная обратная связь
-window.Telegram.WebApp.HapticFeedback.impactOccurred('light');
-window.Telegram.WebApp.HapticFeedback.notificationOccurred('success');
+window.Telegram.WebApp.HapticFeedback.impactOccurred("light");
+window.Telegram.WebApp.HapticFeedback.notificationOccurred("success");
 
 // Данные пользователя
 const user = window.Telegram.WebApp.initDataUnsafe.user;
@@ -150,6 +151,7 @@ const user = window.Telegram.WebApp.initDataUnsafe.user;
 ## 🍔 Меню товаров
 
 **Основные блюда:**
+
 - 🍔 Burger - $4.99
 - 🌭 Hotdog - $3.49
 - 🌮 Taco - $3.99
@@ -158,9 +160,11 @@ const user = window.Telegram.WebApp.initDataUnsafe.user;
 - 🍣 Sushi - $8.99
 
 **Гарниры:**
+
 - 🍟 Fries - $1.49
 
 **Десерты:**
+
 - 🍩 Donut - $1.49
 - 🍦 Ice Cream - $2.49
 
@@ -200,15 +204,11 @@ const user = window.Telegram.WebApp.initDataUnsafe.user;
 Используйте Framer Motion компоненты:
 
 ```tsx
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
 
-<motion.div
-  variants={yourVariants}
-  initial="hidden"
-  animate="visible"
->
+<motion.div variants={yourVariants} initial="hidden" animate="visible">
   Content
-</motion.div>
+</motion.div>;
 ```
 
 ### Настройка темы:
@@ -230,3 +230,5 @@ Pull requests приветствуются! Для больших изменен
 ---
 
 Made with ❤️ for Telegram Mini Apps
+
+ok needs remove this part
